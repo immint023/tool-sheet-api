@@ -35,14 +35,10 @@ const userSchema = new mongoose.Schema(
 userSchema.statics = {
   async findAndGenerateToken({ email, password }) {
     if (!email) {
-      throw new Error({
-        message: 'An email is required to generate a token!',
-      });
+      throw new Error('An email is required to generate a token!');
     }
     if (!password) {
-      throw new Error({
-        message: 'A password is required to generate a token!',
-      });
+      throw new Error('A password is required to generate a token!');
     }
     try {
       const user = await this.findOne({ email }).lean();
