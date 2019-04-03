@@ -2,9 +2,10 @@ const jwt = require('jsonwebtoken');
 const httpStatus = require('http-status');
 
 const User = require('../models/user.model');
+const { jwt_secret } = require('../../config/vars');
 
 module.exports.authorize = role => async (req, res, next) => {
-  const { token } = req.query || req.headers || req.body;
+  const token = req.query.token || req.headers.token || req.body.token;
   if (!token) {
     return next(new Error('Not found authentication'));
   }
@@ -14,8 +15,8 @@ module.exports.authorize = role => async (req, res, next) => {
   }
   const authToken = tokens[1];
   try {
-    const payload = await jwt.verify(authToken, process.env.KEY_JWT);
-    const user = await User.findById(payload._id)
+    const { data } = await jwt.verify(authToken, jwt_secret);
+    const user = await User.findById(data._id)
       .select('name avatar role email googleToken')
       .lean();
     if (!user) {

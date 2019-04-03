@@ -7,9 +7,7 @@ const routes = require('../api/routes');
 
 const { json, urlencoded } = require('body-parser');
 app.use(json());
-app.use(urlencoded({ extended: false }));
-
-
+app.use(urlencoded({ extended: true }));
 
 app.use('/api', routes);
 

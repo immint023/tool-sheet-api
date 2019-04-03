@@ -8,10 +8,10 @@ const translateSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'English',
     },
-    spread: {
+    sheet: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Spread',
-    },
+      ref: 'Sheet',
+    }
   },
   {
     timestamps: true,

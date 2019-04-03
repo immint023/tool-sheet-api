@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const englishSchema = new mongoose.Schema(
   {
     text: String,
-    spread: {
+    sheet: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Spread',
+      ref: 'Sheet',
     },
   },
   {

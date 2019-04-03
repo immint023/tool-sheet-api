@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 userSchema.statics = {
@@ -57,7 +57,7 @@ userSchema.statics = {
           data: user,
         },
         jwt_secret,
-        { expiresIn: '1h' }
+        { expiresIn: '1h' },
       );
       return { tokenType: 'Bearer', accessToken: token, user };
     } catch (error) {
@@ -70,8 +70,6 @@ userSchema.post('save', function(error, doc, next) {
   if (error.name === 'MongoError' && error.code === 11000) {
     return next(new Error('This email has already registed!'));
   }
-
-  return next(error);
 });
 
 module.exports = mongoose.model('User', userSchema, 'users');
