@@ -34,7 +34,7 @@ module.exports.create = async (req, res, next) => {
     });
 
     const spread = await importData(data, sheets, req);
-    return res.status(httpStatus.OK).json({
+    return res.status(httpStatus.CREATED).json({
       isSuccess: true,
       data: spread,
     });
@@ -59,6 +59,20 @@ module.exports.getToken = async (req, res, next) => {
     return res.status(httpStatus.OK).json({
       isSuccess,
     });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports.getList = async (req, res, next) => {
+  try {
+    const spreads = await Spread.find({})
+      .populate({
+        path: 'author',
+        select: 'name',
+      })
+      .select('url alias createdAt');
+    return res.status(httpStatus.OK).json(spreads);
   } catch (error) {
     return next(error);
   }
